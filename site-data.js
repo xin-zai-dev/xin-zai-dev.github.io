@@ -3,13 +3,13 @@
 window.PORTFOLIO = {
   name: "xin-zai-dev",
   tagline: "保持好奇，让想法成为作品。",
-  introduction: "从旅行路线到英语学习，把日常想法做成可以使用的工具。这里收录我的项目与持续探索。",
+  introduction: "从旅行路线、英语学习到工业视觉，把想法做成可以使用的工具。这里收录我的项目与持续探索。",
   github: "https://github.com/xin-zai-dev",
   // 只有希望公开邮箱时才填写；为空时联系入口仍指向 GitHub。
   email: "",
   aboutLead: "用具体的作品，介绍自己。",
-  about: "你好，我是 xin-zai-dev。我正在实践如何把日常需求变成工具：用路线工坊记录旅行，用 Speak Daily 练习英语，再用这个网站整理作品。这里展示真实界面、实现方式与源码，记录每一步探索。",
-  currentChapter: "记录旅行，练习英语，继续把想法做出来。",
+  about: "你好，我是 xin-zai-dev。我正在把不同的想法变成工具：用路线工坊记录旅行，用 Speak Daily 练习英语，也用 C++ 与 Qt 探索工业视觉和机械臂仿真。这个网站展示真实界面、实现方式与源码，记录每一步探索。",
+  currentChapter: "从日常工具到桌面软件，继续把想法做出来。",
   // 有真实 PDF 后，可填写相对路径，例如 ./assets/resume.pdf。
   resumeUrl: "",
   projects: [
@@ -62,6 +62,23 @@ window.PORTFOLIO = {
       overview: "提供轮换的每日课程、词汇间隔复习、阅读与口语练习、学习进度和提醒事项管理。可连接本地 Ollama 进行英语对话与纠错，并按需配置企业微信每日学习材料推送。",
       process: "使用原生网页与本机 Node.js 服务，学习记录保存在浏览器。AI 对话、语音和定时推送需要相应的本地服务或独立配置；完整功能不能仅依赖 GitHub Pages 运行。仓库提供启动说明与 macOS launchd 模板，个人凭据与学习记录不随源码发布。",
       url: "https://github.com/xin-zai-dev/reminder-assistant",
+      urlLabel: "查看源码与运行说明",
+      example: false
+    },
+    {
+      id: "software-framework",
+      number: "04",
+      title: "工业视觉通用框架",
+      subtitle: "SoftwareFramework · 视觉检测与机械臂仿真",
+      category: "桌面软件",
+      image: "./assets/projects/software-framework.png",
+      imageAlt: "Industrial Vision Studio 的 SCARA 机械臂视觉分拣仿真界面",
+      runtime: "桌面应用",
+      tags: ["C++17", "Qt 6", "CMake", "SQLite", "SCARA 仿真"],
+      description: "将图像检测、流程编排与虚拟设备联调放在同一个桌面工作台中。",
+      overview: "提供采集、图像测量、OK / NG 判定与记录保存的顺序流程，支持数据显示页配置、历史记录查询和 CSV 导出。虚拟相机、运动轴、光源与 PLC / I/O 共享仿真状态，并提供 SCARA 动画、示教回放与视觉分拣实验室。截图使用模拟设备与示范工程。",
+      process: "使用 C++17、Qt 6 Widgets 与 CMake，默认配置无需商业视觉 SDK。需在本机编译运行，步骤见仓库 README；GitHub Pages 展示项目介绍与截图。当前视觉算法面向示范工件，机械臂为虚拟仿真，Windows 与厂商硬件适配需要相应环境另行验证。",
+      url: "https://github.com/xin-zai-dev/SoftwareFramework",
       urlLabel: "查看源码与运行说明",
       example: false
     }

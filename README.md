@@ -2,13 +2,14 @@
 
 无依赖、无构建步骤的 HTML / CSS / JavaScript 静态站点，适合直接发布到 GitHub Pages。
 
-已发布于 <https://xin-zai-dev.github.io/>，展示以下三个真实项目及其界面截图：
+已发布于 <https://xin-zai-dev.github.io/>，展示以下四个真实项目及其界面截图：
 
 - [自驾路线工坊 / AmapRoutes](https://github.com/xin-zai-dev/AmapRoutes)：路线与足迹可视化、图片和视频导出。
 - [PersonalWebsite](https://github.com/xin-zai-dev/xin-zai-dev.github.io)：当前个人简历与作品集网站。
 - [Speak Daily / reminder Assistant](https://github.com/xin-zai-dev/reminder-assistant)：每日英语课程、复习与本地提醒。
+- [SoftwareFramework / Industrial Vision Studio](https://github.com/xin-zai-dev/SoftwareFramework)：C++ / Qt 工业视觉工作台、设备仿真与 SCARA 实验室。
 
-AmapRoutes 与 Speak Daily 的完整功能需要本地服务，网站提供截图、介绍和源码入口；运行方式见对应仓库。个人教育与工作经历仍标记为待补充。
+AmapRoutes 与 Speak Daily 的完整功能需要本地服务；SoftwareFramework 是需要本机 Qt 环境编译的桌面应用。网站提供截图、介绍和源码入口，运行方式见对应仓库。个人教育与工作经历仍标记为待补充。
 
 ## 本地预览
 
