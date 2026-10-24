@@ -2,6 +2,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, extname, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
+import { runInNewContext } from 'node:vm';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const entry = resolve(root, 'index.html');
@@ -58,6 +59,24 @@ for (const tag of html.matchAll(/<[a-z][^>]*>/gi)) {
       if (!ids.has(anchor)) problems.push(`页面锚点不存在：#${anchor}`);
     }
   }
+}
+
+// Project images are rendered by JavaScript rather than written in index.html.
+try {
+  const context = { window: {} };
+  runInNewContext(readFileSync(resolve(root, 'site-data.js'), 'utf8'), context, { timeout: 1000 });
+  for (const project of context.window.PORTFOLIO.projects || []) {
+    const value = project.image;
+    if (!value) continue;
+    const url = new URL(value, 'https://local.invalid/index.html');
+    if (url.origin !== 'https://local.invalid') continue;
+    const path = resolve(root, `.${decodeURIComponent(url.pathname)}`);
+    if (!path.startsWith(`${root}${sep}`) || !existsSync(path) || !statSync(path).isFile()) {
+      problems.push(`项目截图不存在或超出网站目录：${value}`);
+    } else resourceCount += 1;
+  }
+} catch (error) {
+  problems.push(`项目资料无法检查：${error.message}`);
 }
 
 const sources = readdirSync(root)

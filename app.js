@@ -58,16 +58,18 @@
     }
   });
 
-  const artwork = (kind) => {
-    const art = element("div", `project-art art-${["dashboard", "focus", "form"].includes(kind) ? kind : "form"}`);
+  const artwork = (project) => {
+    const art = element("div", "project-art project-screenshot");
     art.setAttribute("aria-hidden", "true");
-    // These are decorative layout illustrations, not screenshots of real projects.
-    const pieces = {
-      dashboard: '<div class="mock-dashboard"><div class="mock-side"><b>◈</b><i></i><i></i><i></i><i></i></div><div class="mock-main"><div class="mock-title">Overview <span>•••</span></div><div class="mock-stats"><div><small>Total views</small><strong>12,840</strong></div><div><small>Growth</small><strong>+24.8%</strong></div></div><div class="mock-chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="mock-lines"><i></i><i></i></div></div></div>',
-      focus: '<div class="mock-focus"><span class="focus-label">MAKE ROOM FOR</span><strong>the important.</strong><div class="focus-task done"><span>✓</span> A little less noise</div><div class="focus-task"><span></span> A little more focus</div><div class="focus-task"><span></span> One thing at a time</div><div class="focus-bottom"><span>↳ KEEP IT SIMPLE</span><b>+</b></div></div><span class="focus-asterisk">✳</span>',
-      form: '<div class="form-poster"><div class="poster-header"><span>FORM &amp;<br>FEELING</span><span>VOL. 01</span></div><div class="poster-shapes"><i></i><i></i><i></i><i></i></div><div class="poster-footer"><span>EXPLORATIONS<br>IN EVERYDAY FORMS</span><span>↗</span></div></div>'
-    };
-    art.innerHTML = pieces[kind] || pieces.form;
+    const url = project.image && safeUrl(project.image);
+    if (url) {
+      const img = element("img");
+      img.src = url;
+      img.alt = "";
+      img.loading = "lazy";
+      img.decoding = "async";
+      art.append(img);
+    }
     return art;
   };
   const projects = Array.isArray(data.projects) ? data.projects : [];
@@ -87,6 +89,19 @@
     link.hidden = !url;
     if (url) link.href = url;
     else link.removeAttribute("href");
+    link.textContent = `${project.urlLabel || "查看项目"} ↗`;
+    const sourceLink = $("#dialog-source");
+    const sourceUrl = project.sourceUrl && safeUrl(project.sourceUrl);
+    sourceLink.hidden = !sourceUrl;
+    if (sourceUrl) sourceLink.href = sourceUrl;
+    else sourceLink.removeAttribute("href");
+    const image = $("#dialog-image");
+    const imageUrl = project.image && safeUrl(project.image);
+    image.hidden = !imageUrl;
+    if (imageUrl) {
+      image.src = imageUrl;
+      image.alt = project.imageAlt || `${project.title}界面截图`;
+    } else image.removeAttribute("src");
     dialog.showModal();
     document.body.classList.add("dialog-open");
     dialog.querySelector(".dialog-close").focus();
@@ -102,10 +117,11 @@
       const button = element("button", "project-open");
       button.type = "button";
       button.setAttribute("aria-label", `查看${project.example ? "示例" : "作品"}：${project.title}`);
-      button.append(artwork(project.artwork));
+      button.append(artwork(project));
       const openMark = element("span", "project-open-mark", "↗");
       openMark.setAttribute("aria-hidden", "true");
       button.append(openMark);
+      if (project.runtime) button.append(element("span", "project-runtime", project.runtime));
       if (project.example) button.append(element("span", "project-example", "示例项目"));
       button.addEventListener("click", () => openProject(project, button));
       const meta = element("div", "project-meta");
